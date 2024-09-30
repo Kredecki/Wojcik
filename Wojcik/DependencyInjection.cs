@@ -1,4 +1,5 @@
-﻿using Wojcik.Persistence.Repositories;
+﻿using MudBlazor.Services;
+using Wojcik.Persistence.Repositories;
 using Wojcik.Shared.Interfaces.Repositories;
 using Wojcik.Shared.Request;
 
@@ -9,7 +10,9 @@ public static class DependencyInjection
 	public static IServiceCollection AddApplication(this IServiceCollection services)
 	{
 		services.AddMediatR(x => x.RegisterServicesFromAssemblies(typeof(ICommandQuery).Assembly));
-		services.AddScoped<IExampleRepository, ExampleRepository>();
+        services.AddMudServices();
+
+        services.AddScoped<IExampleRepository, ExampleRepository>();
 
 		return services;
 	}
