@@ -16,11 +16,6 @@ var configurtaion = new ConfigurationBuilder()
 	.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", true)
 	.Build();
 
-builder.Services.AddSwaggerGen();
-builder.Services.AddControllers();
-builder.Services.AddHttpClient();
-builder.Services.AddApplication();
-
 #region Database Connection
 var connectionString = configurtaion.GetConnectionString("DefaultConnection");
 
@@ -30,6 +25,8 @@ if (String.IsNullOrEmpty(connectionString))
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 	options.UseNpgsql(connectionString));
 #endregion
+
+builder.Services.AddApplication();
 
 var app = builder.Build();
 
@@ -63,5 +60,7 @@ app.MapRazorComponents<App>()
     .AddAdditionalAssemblies(typeof(Wojcik.Client._Imports).Assembly);
 
 app.MapControllers();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();

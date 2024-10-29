@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wojcik.Persistence", "Wojci
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wojcik.UnitTests", "Wojcik.UnitTests\Wojcik.UnitTests.csproj", "{93DBD9C4-5472-4547-98B1-331A1E84AE71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wojcik.Client.UnitTests", "Wojcik.Client.UnitTests\Wojcik.Client.UnitTests.csproj", "{68BF0E98-F322-4AF8-948A-6C4B66D21F55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wojcik.Client.UnitTests", "Wojcik.Client.UnitTests\Wojcik.Client.UnitTests.csproj", "{68BF0E98-F322-4AF8-948A-6C4B66D21F55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
