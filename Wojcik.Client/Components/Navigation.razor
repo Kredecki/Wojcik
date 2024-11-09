@@ -1,0 +1,23 @@
+﻿@rendermode InteractiveWebAssembly
+
+<div class="top-row px-4">
+    <a href="#" class="logo">
+        <MudBadge Content="@_label" Color="Color.Dark" Overlap="true" Class="mx-6 my-4">
+            Wojcik
+        </MudBadge>
+    </a>
+    <div class="top-row">
+        <MudMenu FullWidth="true" ActivationEvent="@MouseEvent.LeftClick" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
+            <ActivatorContent>
+                <MudChip T="string" Icon="@Icons.Material.Filled.Mouse" Color="Color.Primary">Mouse over</MudChip>
+            </ActivatorContent>
+            <ChildContent>
+                <MudMenuItem>Profile</MudMenuItem>
+                <MudMenuItem>Theme</MudMenuItem>
+                <MudMenuItem>Usage</MudMenuItem>
+                <MudMenuItem>Sign Out</MudMenuItem>
+            </ChildContent>
+        </MudMenu>
+        <button type="button" class="btn btn-link ml-md-auto" @onclick="@Logout">Logout</button>
+    </div>
+</div>

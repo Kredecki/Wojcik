@@ -6,7 +6,7 @@ using Wojcik.Shared.Models;
 
 namespace Wojcik.Controllers;
 
-[Route("api/[controller]/[action]")]
+[Route("Api/[controller]/[action]")]
 [ApiController]
 public class AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager) : Controller
 {
@@ -14,24 +14,30 @@ public class AuthController(UserManager<ApplicationUser> userManager, SignInMana
     private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
 
     [HttpPost]
-    public async Task<IActionResult> Login(LoginRequest request)
+    public async Task<IActionResult> Login(LoginModel request)
     {
         var user = await _userManager.FindByNameAsync(request.UserName);
         if (user == null) return BadRequest("User does not exist");
+
         var singInResult = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
         if (!singInResult.Succeeded) return BadRequest("Invalid password");
+
         await _signInManager.SignInAsync(user, request.RememberMe);
         return Ok();
     }
 
     [HttpPost]
-    public async Task<IActionResult> Register(RegisterRequest parameters)
+    public async Task<IActionResult> Register(RegisterModel parameters)
     {
-        var user = new ApplicationUser();
-        user.UserName = parameters.UserName;
-        var result = await _userManager.CreateAsync(user, parameters.Password);
+		ApplicationUser user = new()
+		{
+			UserName = parameters.UserName
+		};
+
+		var result = await _userManager.CreateAsync(user, parameters.Password);
         if (!result.Succeeded) return BadRequest(result.Errors.FirstOrDefault()?.Description);
-        return await Login(new LoginRequest
+
+        return await Login(new LoginModel
         {
             UserName = parameters.UserName,
             Password = parameters.Password
@@ -47,12 +53,12 @@ public class AuthController(UserManager<ApplicationUser> userManager, SignInMana
     }
 
     [HttpGet]
-    public CurrentUser CurrentUserInfo()
+    public CurrentUserModel CurrentUserInfo()
     {
-        return new CurrentUser
+        return new CurrentUserModel
         {
-            IsAuthenticated = User.Identity.IsAuthenticated,
-            UserName = User.Identity.Name,
+            IsAuthenticated = User.Identity!.IsAuthenticated,
+            UserName = User.Identity.Name!,
             Claims = User.Claims
             .ToDictionary(c => c.Type, c => c.Value)
         };

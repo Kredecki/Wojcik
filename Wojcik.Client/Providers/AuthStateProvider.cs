@@ -5,14 +5,11 @@ using Wojcik.Shared.Models;
 
 namespace Wojcik.Client.Providers;
 
-public class CustomStateProvider : AuthenticationStateProvider
+public class AuthStateProvider(IAuthService api) : AuthenticationStateProvider
 {
-    private readonly IAuthService api;
-    private CurrentUser _currentUser;
-    public CustomStateProvider(IAuthService api)
-    {
-        this.api = api;
-    }
+    private readonly IAuthService api = api;
+    private CurrentUserModel _currentUser;
+
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
         var identity = new ClaimsIdentity();
@@ -33,7 +30,7 @@ public class CustomStateProvider : AuthenticationStateProvider
         return new AuthenticationState(new ClaimsPrincipal(identity));
     }
 
-    private async Task<CurrentUser> GetCurrentUser()
+    private async Task<CurrentUserModel> GetCurrentUser()
     {
         if (_currentUser != null && _currentUser.IsAuthenticated) return _currentUser;
         _currentUser = await api.CurrentUserInfo();
@@ -45,12 +42,12 @@ public class CustomStateProvider : AuthenticationStateProvider
         _currentUser = null;
         NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
     }
-    public async Task Login(LoginRequest loginParameters)
+    public async Task Login(LoginModel loginParameters)
     {
         await api.Login(loginParameters);
         NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
     }
-    public async Task Register(RegisterRequest registerParameters)
+    public async Task Register(RegisterModel registerParameters)
     {
         await api.Register(registerParameters);
         NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());

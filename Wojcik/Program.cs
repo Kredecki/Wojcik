@@ -30,17 +30,16 @@ builder.Services.AddApplication();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI(x =>
-{
-    x.SwaggerEndpoint("/swagger/v1/swagger.json", "Wojcik API V1");
-    x.RoutePrefix = string.Empty;
-});
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
+    app.UseSwagger();
+    app.UseSwaggerUI(x =>
+    {
+        x.SwaggerEndpoint("/swagger/v1/swagger.json", "Wojcik API V1");
+        x.RoutePrefix = "swagger";
+    });
 }
 else
 {

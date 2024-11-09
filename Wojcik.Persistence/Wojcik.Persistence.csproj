@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Wojcik.Shared\Wojcik.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
 </Project>

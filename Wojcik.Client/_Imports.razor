@@ -10,10 +10,13 @@
 @using Wojcik.Client.Providers
 @using Wojcik.Shared.Models
 @using Microsoft.AspNetCore.Components.Authorization
+@using Wojcik.Client.Layouts
+@using Wojcik.Client.Components
 
 @using Radzen
 @using Radzen.Blazor
 @using MudBlazor
-@using Wojcik.Shared.Dtos
 
-@inject HttpClient Http
+@inject NavigationManager navigationManager
+@inject AuthStateProvider authStateProvider
+@inject IHttpClientFactory httpClientFactory

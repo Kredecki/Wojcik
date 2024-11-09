@@ -4,25 +4,10 @@ using Wojcik.Persistence.Entities;
 
 namespace Wojcik.Persistence;
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options)
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-    {
-    }
-
-    public DbSet<Example> Examples { get; set; }
-
-	protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		base.OnModelCreating(modelBuilder);
-
-		#region Example
-		modelBuilder.Entity<Example>(model =>
-		{
-			model.HasKey(m => m.Guid);
-			model.Property(m => m.Name).HasMaxLength(32);
-			model.Property(m => m.Description).HasMaxLength(255);
-		});
-		#endregion
 	}
 }

@@ -29,5 +29,5 @@
     <ProjectReference Include="..\Wojcik.Persistence\Wojcik.Persistence.csproj" />
     <ProjectReference Include="..\Wojcik.Shared\Wojcik.Shared.csproj" />
   </ItemGroup>
-
+	
 </Project>

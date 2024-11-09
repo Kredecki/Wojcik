@@ -1,0 +1,20 @@
+﻿@page "/login"
+@rendermode @(new InteractiveAutoRenderMode(prerender: false))
+@layout AuthLayout
+
+<RadzenCard class="rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12" style="max-width: 600px;">
+
+    <RadzenTemplateForm Data="Model">
+        <RadzenLogin AllowRememberMe="true"
+                     AllowResetPassword="false"
+                     AllowRegister="false"
+                     UserText="Nazwa użytkownika"
+                     UserRequired="Pole nazwa użytkownika jest wymagane"
+                     PasswordText="Hasło"
+                     PasswordRequired="Pole hasło jest wymagane"
+                     RememberMeText="Zapamiętaj mnie"
+                     FormFieldVariant="Radzen.Variant.Filled"
+                     Login="@(args => OnSubmit(args))" />
+    </RadzenTemplateForm>
+
+</RadzenCard>

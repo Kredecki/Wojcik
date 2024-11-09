@@ -1,0 +1,41 @@
+﻿@page "/register"
+@rendermode @(new InteractiveAutoRenderMode(prerender: false))
+@layout AuthLayout
+
+<h1 class="h2 font-weight-normal login-title">
+    Register
+</h1>
+
+<RadzenTextBox @bind-Value=@registerRequest.UserName></RadzenTextBox>
+<RadzenTextBox @bind-Value=@registerRequest.Password></RadzenTextBox>
+<RadzenTextBox @bind-Value=@registerRequest.PasswordConfirm></RadzenTextBox>
+<RadzenButton Click="@register">Submit</RadzenButton>
+
+@registerRequest.UserName
+@registerRequest.Password
+@registerRequest.PasswordConfirm
+
+@error
+
+@code {
+
+    RegisterModel registerRequest { get; set; } = new RegisterModel();
+    string error { get; set; }
+
+    async Task register()
+    {
+        error = null;
+        Console.WriteLine("0");
+        try
+        {
+            Console.WriteLine("1");
+            await authStateProvider.Register(registerRequest);
+            Console.WriteLine("2");
+            navigationManager.NavigateTo("");
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+}

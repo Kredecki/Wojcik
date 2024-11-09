@@ -6,14 +6,15 @@ using Wojcik.Client.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
+builder.Services.AddHttpClient("Wojcik", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7000/");
+});
+
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore();
-builder.Services.AddScoped<CustomStateProvider>();
-builder.Services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<CustomStateProvider>());
+builder.Services.AddScoped<AuthStateProvider>();
+builder.Services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<AuthStateProvider>());
 builder.Services.AddScoped<IAuthService, AuthService>();
-
-builder.Services.AddHttpClient("Wojcik-API", 
-	client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
-builder.Services.AddScoped(x => x.GetRequiredService<IHttpClientFactory>().CreateClient("Wojcik-API"));
 
 await builder.Build().RunAsync();

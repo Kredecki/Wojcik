@@ -2,7 +2,7 @@
 
 namespace Wojcik.Shared.Models;
 
-public class LoginRequest
+public class LoginModel
 {
     [Required]
     public string UserName { get; set; } = string.Empty;

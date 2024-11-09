@@ -2,7 +2,7 @@
 
 namespace Wojcik.Shared.Models;
 
-public class RegisterRequest
+public class RegisterModel
 {
     [Required]
     public string UserName { get; set; } = string.Empty;
