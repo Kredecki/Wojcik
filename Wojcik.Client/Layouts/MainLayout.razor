@@ -1,18 +1,12 @@
 ﻿@inherits LayoutComponentBase
 
-<AuthorizeView>
-	<RadzenComponents @rendermode="InteractiveAuto" />
-	<MudThemeProvider />
-	<MudPopoverProvider />
-	<MudDialogProvider />
-	<MudSnackbarProvider />
-	<div class="page">
-		<Navigation />
+<RadzenComponents @rendermode="InteractiveAuto" />
+<div class="page">
+	<Navigation />
 
-		<main>
-			<article class="content px-4">
-				@Body
-			</article>
-		</main>
-	</div>
-</AuthorizeView>
+	<main>
+		<article class="content px-4">
+			@Body
+		</article>
+	</main>
+</div>

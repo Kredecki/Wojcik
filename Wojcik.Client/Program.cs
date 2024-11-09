@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using MudBlazor.Services;
+using Radzen;
 using Wojcik.Client.Interfaces;
 using Wojcik.Client.Providers;
 using Wojcik.Client.Services;
@@ -13,6 +15,8 @@ builder.Services.AddHttpClient("Wojcik", client =>
 
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore();
+builder.Services.AddMudServices();
+builder.Services.AddRadzenComponents();
 builder.Services.AddScoped<AuthStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<AuthStateProvider>());
 builder.Services.AddScoped<IAuthService, AuthService>();

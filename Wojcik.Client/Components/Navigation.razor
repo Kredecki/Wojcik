@@ -1,4 +1,8 @@
 ﻿@rendermode InteractiveWebAssembly
+<MudThemeProvider @rendermode="InteractiveAuto" />
+<MudPopoverProvider @rendermode="InteractiveAuto" />
+<MudDialogProvider @rendermode="InteractiveAuto" />
+<MudSnackbarProvider @rendermode="InteractiveAuto" />
 
 <div class="top-row px-4">
     <a href="#" class="logo">
@@ -6,18 +10,40 @@
             Wojcik
         </MudBadge>
     </a>
+    <div>
+        <MudButtonGroup Variant="MudBlazor.Variant.Outlined" Style="display: flex; align-items: center;">
+                <InputText @bind-Value=@SearchValue placeholder="Search..." style="height: 2.3rem; width: 30rem; padding: 10px; border: 1px solid black; border-radius: 5px 0px 0px 5px;"></InputText>
+                <MudMenu FullWidth="true" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
+                <ActivatorContent>
+                    <MudButton Variant="MudBlazor.Variant.Outlined" EndIcon="@Icons.Material.Filled.ArrowDropDown">Categories</MudButton>
+                </ActivatorContent>
+                <ChildContent>
+                </ChildContent>
+            </MudMenu>
+            <MudIconButton Icon="@Icons.Material.Filled.Search" Variant="MudBlazor.Variant.Outlined"></MudIconButton>
+        </MudButtonGroup>
+    </div>
     <div class="top-row">
-        <MudMenu FullWidth="true" ActivationEvent="@MouseEvent.LeftClick" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
-            <ActivatorContent>
-                <MudChip T="string" Icon="@Icons.Material.Filled.Mouse" Color="Color.Primary">Mouse over</MudChip>
-            </ActivatorContent>
-            <ChildContent>
-                <MudMenuItem>Profile</MudMenuItem>
-                <MudMenuItem>Theme</MudMenuItem>
-                <MudMenuItem>Usage</MudMenuItem>
-                <MudMenuItem>Sign Out</MudMenuItem>
-            </ChildContent>
-        </MudMenu>
-        <button type="button" class="btn btn-link ml-md-auto" @onclick="@Logout">Logout</button>
+    <CascadingAuthenticationState>
+            <AuthorizeView>
+                <Authorized>
+                    <div style="display: flex; gap: 30px; align-items: center;">
+                        <RadzenIcon Icon="shopping_cart" Style="font-size: 2rem; color: #434343; cursor: pointer;" />
+                        <MudMenu AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopCenter">
+                            <ActivatorContent>
+                                <MudAvatar Color="Color.Primary">M</MudAvatar>
+                            </ActivatorContent>
+                            <ChildContent>
+                                <MudMenuItem @onclick=@Logout>Logout</MudMenuItem>
+                            </ChildContent>
+                        </MudMenu>
+                    </div>
+                </Authorized>
+                <NotAuthorized>
+                    <MudButton Variant="MudBlazor.Variant.Text" @onclick="@(() => navigationManager.NavigateTo("/login"))">Login</MudButton>
+                    <MudButton Variant="MudBlazor.Variant.Filled" Color="Color.Dark" @onclick="@(() => navigationManager.NavigateTo("/register"))">Sigin</MudButton>
+                </NotAuthorized>
+            </AuthorizeView>
+    </CascadingAuthenticationState>
     </div>
 </div>
