@@ -7,6 +7,8 @@ using Wojcik.Client.Providers;
 using Wojcik.Client.Interfaces;
 using Wojcik.Client.Services;
 using Radzen;
+using Wojcik.Shared.Interfaces.Repositories;
+using Wojcik.Persistence.Repositories.Administration;
 
 namespace Wojcik;
 
@@ -38,6 +40,8 @@ public static class DependencyInjection
 
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<AuthStateProvider>();
+
+        services.AddScoped<IUsersRepository, UsersRepository>();
 
 		return services;
 	}

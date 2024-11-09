@@ -13,6 +13,7 @@
 @using Wojcik.Client.Layouts
 @using Wojcik.Client.Components
 @using Microsoft.AspNetCore.Authorization
+@using Wojcik.Shared.DTOs
 
 @using Radzen
 @using Radzen.Blazor
@@ -21,3 +22,6 @@
 @inject NavigationManager navigationManager
 @inject AuthStateProvider authStateProvider
 @inject IHttpClientFactory httpClientFactory
+@inject HttpClient client
+
+@inject NotificationService notificationService

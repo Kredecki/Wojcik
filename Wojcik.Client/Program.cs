@@ -15,10 +15,10 @@ builder.Services.AddHttpClient("Wojcik", client =>
 
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore();
-builder.Services.AddMudServices();
-builder.Services.AddRadzenComponents();
 builder.Services.AddScoped<AuthStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(s => s.GetRequiredService<AuthStateProvider>());
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddMudServices();
+builder.Services.AddRadzenComponents();
 
 await builder.Build().RunAsync();

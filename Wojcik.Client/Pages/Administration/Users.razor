@@ -1,0 +1,24 @@
+﻿@page "/admin/users"
+@layout AdminLayout
+@attribute [Authorize(Roles = "Administrator")]
+@rendermode @(new InteractiveAutoRenderMode(prerender: false))
+
+<RadzenDataGrid AllowAlternatingRows="false" AllowFiltering="true" AllowPaging="true" PageSize="5" AllowSorting="true" Data="@data" TItem="UserDTO" ColumnWidth="200px">
+	<Columns>
+        <RadzenDataGridColumn Property="@nameof(UserDTO.UserName)" Title="Nazwa użytkownika" TextAlign="TextAlign.Center">
+            <Template Context="data">
+                @data.UserName
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Property="@nameof(UserDTO.Email)" Title="Email" TextAlign="TextAlign.Center">
+            <Template Context="data">
+                @data.Email
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Right" Frozen="true" FrozenPosition="FrozenColumnPosition.Right">
+            <Template Context="data">
+                <RadzenToggleButton Icon="block" ButtonStyle="ButtonStyle.Danger" ToggleIcon="check_circle" ToggleButtonStyle="ButtonStyle.Success" Click="@(args => Update(data.Id))"></RadzenToggleButton>
+            </Template>
+        </RadzenDataGridColumn>
+	</Columns>
+</RadzenDataGrid>
