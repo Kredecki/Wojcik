@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using Wojcik.Persistence.Entities;
 using Wojcik.Shared.Models;
 
@@ -53,14 +54,26 @@ public class AuthController(UserManager<ApplicationUser> userManager, SignInMana
     }
 
     [HttpGet]
-    public CurrentUserModel CurrentUserInfo()
-    {
-        return new CurrentUserModel
-        {
-            IsAuthenticated = User.Identity!.IsAuthenticated,
-            UserName = User.Identity.Name!,
-            Claims = User.Claims
-            .ToDictionary(c => c.Type, c => c.Value)
-        };
-    }
+	public CurrentUserModel CurrentUserInfo()
+	{
+		var roles = User.Claims
+			.Where(c => c.Type == ClaimTypes.Role)
+			.Select(c => c.Value)
+			.ToList();
+
+		var claimsDictionary = User.Claims
+			.GroupBy(c => c.Type)
+			.ToDictionary(
+				g => g.Key,
+				g => string.Join(", ", g.Select(c => c.Value))
+			);
+
+		return new CurrentUserModel
+		{
+			IsAuthenticated = User.Identity!.IsAuthenticated,
+			UserName = User.Identity.Name ?? string.Empty,
+			Roles = roles,
+			Claims = claimsDictionary
+		};
+	}
 }
