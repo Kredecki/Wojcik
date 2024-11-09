@@ -1,0 +1,21 @@
+﻿@rendermode InteractiveWebAssembly
+
+<div class="@sidebar">
+	<RadzenPanelMenu DisplayStyle="@DisplayStyle" ShowArrow="@isShowArrow">
+		<div class="@subSidebar">
+			<div style="display: flex; flex-direction: column; width: 100%; ">
+				<RadzenPanelMenuItem Text="Home" Icon="home" Path="/admin/dashboard"></RadzenPanelMenuItem>
+				<RadzenPanelMenuItem Text="Administracja" Icon="admin_panel_settings" Style="--rz-panel-menu-item-2nd-level-background-color: #f7f7f7;">
+					<RadzenPanelMenuItem Text="Użytkownicy" Icon="group" Path="users"></RadzenPanelMenuItem>
+				</RadzenPanelMenuItem>
+				<RadzenPanelMenuItem Text="Produkty" Icon="package" Path="/admin/products"></RadzenPanelMenuItem>
+				<RadzenPanelMenuItem Text="Kategorie" Icon="category" Path="/admin/categories"></RadzenPanelMenuItem>
+				<RadzenPanelMenuItem Text="Zamówienia" Icon="orders" Path="/admin/orders"></RadzenPanelMenuItem>
+			</div>
+			<div style="display: flex; flex-direction: column;">
+				<RadzenPanelMenuItem Text="Wyloguj" Icon="logout" Path="logout"></RadzenPanelMenuItem>
+				<RadzenToggleButton Icon="keyboard_double_arrow_left" ToggleIcon="keyboard_double_arrow_right" Click="@ToggleMenu" Variant="Radzen.Variant.Text" ButtonStyle="ButtonStyle.Dark" ToggleButtonStyle="ButtonStyle.Dark"></RadzenToggleButton>
+			</div>
+		</div>
+	</RadzenPanelMenu>
+</div>
