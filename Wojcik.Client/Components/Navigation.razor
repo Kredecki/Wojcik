@@ -34,6 +34,10 @@
                                 <MudAvatar Color="Color.Primary">M</MudAvatar>
                             </ActivatorContent>
                             <ChildContent>
+                                @if(isAdmin)
+                                {
+                                    <MudMenuItem @onclick=@(() => navigationManager.NavigateTo("/admin/dashboard"))>Panel Administratora</MudMenuItem>
+                                }
                                 <MudMenuItem @onclick=@Logout>Logout</MudMenuItem>
                             </ChildContent>
                         </MudMenu>

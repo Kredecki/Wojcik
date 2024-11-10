@@ -14,8 +14,8 @@ namespace Wojcik;
 
 public static class DependencyInjection
 {
-	public static IServiceCollection AddApplication(this IServiceCollection services)
-	{
+    public static IServiceCollection AddApplication(this IServiceCollection services)
+    {
         services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
         services.ConfigureApplicationCookie(options =>
         {
@@ -37,12 +37,14 @@ public static class DependencyInjection
         services.AddRadzenComponents();
         services.AddMudServices();
         services.AddMediatR(x => x.RegisterServicesFromAssemblies(typeof(ICommandQuery).Assembly));
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<AuthStateProvider>();
 
         services.AddScoped<IUsersRepository, UsersRepository>();
+        services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 
-		return services;
-	}
+        return services;
+    }
 }
