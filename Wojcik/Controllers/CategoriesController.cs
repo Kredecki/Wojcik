@@ -14,7 +14,6 @@ namespace Wojcik.Controllers;
 public class CategoriesController(IMediator mediator) : Controller
 {
     [HttpGet]
-    [Authorize(Roles = "Administrator")]
     public async Task<List<CategoryDTO>> Get()
         => await mediator.Send(new GetQuery());
 
