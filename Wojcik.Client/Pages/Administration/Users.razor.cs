@@ -50,7 +50,5 @@ public partial class Users
     }
 
     private void ShowNotification(NotificationMessage message)
-    {
-        notificationService.Notify(message);
-    }
+        => notificationService.Notify(message);   
 }

@@ -17,7 +17,7 @@
         </RadzenDataGridColumn>
         <RadzenDataGridColumn Context="data" Filterable="false" Sortable="false" TextAlign="TextAlign.Right" Frozen="true" FrozenPosition="FrozenColumnPosition.Right">
             <Template Context="data">
-                <RadzenToggleButton Icon="block" ButtonStyle="ButtonStyle.Danger" ToggleIcon="check_circle" ToggleButtonStyle="ButtonStyle.Success" Click="@(args => Update(data.Id))"></RadzenToggleButton>
+                <RadzenToggleButton Icon="check_circle" ButtonStyle="ButtonStyle.Success" ToggleIcon="block" ToggleButtonStyle="ButtonStyle.Danger" Click="@(args => Update(data.Id))" @bind-Value=data.Enabled></RadzenToggleButton>
             </Template>
         </RadzenDataGridColumn>
 	</Columns>

@@ -1,4 +1,5 @@
-﻿using Radzen.Blazor;
+﻿using Radzen;
+using Radzen.Blazor;
 using System.Net.Http.Json;
 using Wojcik.Shared.DTOs;
 
@@ -34,7 +35,7 @@ public partial class Categories
         categoriesToUpdate.Remove(DTO);
     }
 
-    async Task EditRow(CategoryDTO DTO)
+    private async Task EditRow(CategoryDTO DTO)
     {
         Reset();
 
@@ -42,19 +43,19 @@ public partial class Categories
         await categoriesGrid.EditRow(DTO);
     }
 
-    async void OnUpdateRow(CategoryDTO DTO)
+    private async void OnUpdateRow(CategoryDTO DTO)
     {
         Reset(DTO);
 
         await client.PostAsJsonAsync<CategoryDTO>("Api/Categories/Update", DTO);
     }
 
-    async Task SaveRow(CategoryDTO DTO)
+    private async Task SaveRow(CategoryDTO DTO)
     {
         await categoriesGrid.UpdateRow(DTO);
     }
 
-    async void CancelEdit(CategoryDTO DTO)
+    private async void CancelEdit(CategoryDTO DTO)
     {
         Reset(DTO);
 
@@ -62,7 +63,7 @@ public partial class Categories
         await Get();
     }
 
-    async Task InsertRow()
+    private async Task InsertRow()
     {
         Reset();
 
@@ -71,14 +72,14 @@ public partial class Categories
         await categoriesGrid.InsertRow(order);
     }
 
-    async void OnCreateRow(CategoryDTO DTO)
+    private async void OnCreateRow(CategoryDTO DTO)
     {
         DTO.Id = Guid.NewGuid();
         await client.PostAsJsonAsync<CategoryDTO>("Api/Categories/Create", DTO);
         categoriesToInsert.Remove(DTO);
     }
 
-    async void DeleteRow(CategoryDTO DTO)
+    private async void DeleteRow(CategoryDTO DTO)
     {
         Reset(DTO);
 
@@ -86,4 +87,36 @@ public partial class Categories
         await Get();
         StateHasChanged();
     }
+
+    private async void Update(Guid guid)
+    {
+        var user = data.Where(x => x.Id == guid).Select(x => x).First();
+        string state = string.Empty;
+        if (user.Enabled)
+        {
+            state = "nałożona";
+            user.Enabled = false;
+        }
+        else
+        {
+            state = "zdjęta";
+            user.Enabled = true;
+        }
+
+        await client.PostAsJsonAsync<CategoryDTO>("Api/Categories/Update", user);
+
+        ShowNotification(new NotificationMessage
+        {
+            Style = "position: absolute; inset-inline-start: -1000px;",
+            Severity = NotificationSeverity.Success,
+            Summary = $"Blokada {state} pomyślnie.",
+            Detail = "",
+            Duration = 4000
+        });
+
+        await Get();
+    }
+
+    private void ShowNotification(NotificationMessage message)
+        => notificationService.Notify(message);
 }
